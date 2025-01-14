@@ -1,3 +1,4 @@
+  ```ascii
   ______ _____ _____ _____ ____   ___  
  |___  /|  _  |_   _|  ___|  _ \ / _ \ 
     / / | | | | | | | |__ | |_) | | | |
@@ -13,7 +14,7 @@
 
 A collection of Python scripts to enhance your Zotero workflow, including PDF management and Obsidian note generation.
 
-```
+```ascii
      _____     __                  
     |     |___|  |__.---.-.-----.
     |  |  |   |  |  |  _  |__ --|
@@ -36,7 +37,7 @@ A collection of Python scripts to enhance your Zotero workflow, including PDF ma
 
 ## Installation
 
-```
+```ascii
      ___           __        __ 
     |   .-----.--|  |.--.--|  |
     |.  |     |  _  |  |  |  |
