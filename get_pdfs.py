@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 import re
 import argparse
+from pick import pick
 
 # Load environment variables from .env file
 load_dotenv()
@@ -33,7 +34,46 @@ def get_collection_name(collection_id):
         return response.json()['data']['name']
     return None
 
-def download_collection_pdfs(collection_id):
+def get_all_collections():
+    """Fetch all collections from Zotero API"""
+    collections_url = f"https://api.zotero.org/{LIBRARY_TYPE}s/{LIBRARY_ID}/collections"
+    response = requests.get(collections_url, headers={'Zotero-API-Key': API_KEY})
+    
+    if response.status_code == 200:
+        return response.json()
+    return None
+
+def select_collection():
+    """Display interactive list of collections and let user choose one"""
+    collections = get_all_collections()
+    if not collections:
+        print("Error: Could not fetch collections")
+        return None
+        
+    # Sort collections alphabetically by name
+    collections.sort(key=lambda x: x['data']['name'].lower())
+    
+    # Create list of collection choices
+    choices = [
+        {
+            'display': f"{collection['data']['name']} [{collection['key']}]",
+            'collection': collection
+        }
+        for collection in collections
+    ]
+    
+    try:
+        title = "Select a collection to download (↑/↓ to move, Enter to select, Ctrl+C to quit)"
+        option, index = pick([c['display'] for c in choices], title)
+        
+        # Extract collection ID from the selected option
+        collection_id = choices[index]['collection']['key']
+        return collection_id
+    except KeyboardInterrupt:
+        print("\nDownload cancelled")
+        return None
+
+def download_collection_pdfs(collection_id, output_dir):
     """Download all PDFs from a specific collection"""
     # Get collection name
     collection_name = get_collection_name(collection_id)
@@ -41,12 +81,8 @@ def download_collection_pdfs(collection_id):
         print(f"Error: Could not fetch collection name for ID {collection_id}")
         return
     
-    # Create base pdfs directory if it doesn't exist
-    if not os.path.exists('pdfs'):
-        os.makedirs('pdfs')
-    
     # Create collection directory
-    collection_dir = os.path.join('pdfs', sanitize_filename(collection_name))
+    collection_dir = os.path.join(output_dir, sanitize_filename(collection_name))
     os.makedirs(collection_dir, exist_ok=True)
     
     print(f"\nDownloading PDFs for collection: {collection_name}")
@@ -136,44 +172,57 @@ def download_collection_pdfs(collection_id):
     return downloaded, errors, skipped
 
 def parse_args():
-    parser = argparse.ArgumentParser(description='Download PDFs from Zotero collections')
-    parser.add_argument('-c', '--collection', 
-                      help='Collection ID to download. If not provided, will use COLLECTION_ID from .env or download all collections')
+    parser = argparse.ArgumentParser(
+        description='Download PDFs from a Zotero collection',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  # Download to current directory:
+  python3 get_pdfs.py
+
+  # Download to specific directory:
+  python3 get_pdfs.py --output-dir /path/to/directory
+
+  # Download specific collection by ID:
+  python3 get_pdfs.py --collection-id ABC123XY
+
+Environment Variables (set using api_setup.py):
+  ZOTERO_API_KEY         Your Zotero API key
+  ZOTERO_LIBRARY_TYPE    Your library type (user/group)
+  ZOTERO_LIBRARY_ID      Your library ID
+
+Note: Run api_setup.py first to configure your environment variables.
+"""
+    )
+    
+    parser.add_argument(
+        '--output-dir', '-o',
+        help='Directory to save PDFs (default: current directory)',
+        default=os.getcwd()
+    )
+    
+    parser.add_argument(
+        '--collection-id', '-c',
+        help='Collection ID to download (if not provided, will show interactive selection)'
+    )
+    
     return parser.parse_args()
 
 def main():
     args = parse_args()
     
-    if args.collection:
-        print(f"Downloading collection specified by argument: {args.collection}")
-        download_collection_pdfs(args.collection)
+    if args.collection_id:
+        print(f"Downloading collection specified by argument: {args.collection_id}")
+        download_collection_pdfs(args.collection_id, args.output_dir)
     elif COLLECTION_ID:
         print(f"Downloading collection specified in .env: {COLLECTION_ID}")
-        download_collection_pdfs(COLLECTION_ID)
+        download_collection_pdfs(COLLECTION_ID, args.output_dir)
     else:
-        print("No specific collection specified, downloading all collections...")
-        # Get all collections and download each
-        collections_url = f"https://api.zotero.org/{LIBRARY_TYPE}s/{LIBRARY_ID}/collections"
-        response = requests.get(collections_url, headers={'Zotero-API-Key': API_KEY})
-        
-        if response.status_code == 200:
-            collections = response.json()
-            total_downloaded = 0
-            total_errors = 0
-            total_skipped = 0
-            
-            for collection in collections:
-                downloaded, errors, skipped = download_collection_pdfs(collection['key'])
-                total_downloaded += downloaded
-                total_errors += errors
-                total_skipped += skipped
-            
-            print("\nOverall Summary:")
-            print(f"- Total files downloaded: {total_downloaded}")
-            print(f"- Total errors: {total_errors}")
-            print(f"- Total items skipped: {total_skipped}")
+        collection_id = select_collection()
+        if collection_id:
+            download_collection_pdfs(collection_id, args.output_dir)
         else:
-            print(f"Error fetching collections: {response.status_code}, {response.text}")
+            print("\nDownload cancelled")
 
 if __name__ == "__main__":
     main()
