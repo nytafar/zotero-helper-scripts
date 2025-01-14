@@ -9,7 +9,7 @@
      Zotero to Obsidian Integration Made Easy
 ```
 
-# Zotero Helper Scripts
+# Zotero Helper Scripts [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A collection of Python scripts to enhance your Zotero workflow, including PDF management and Obsidian note generation.
 
@@ -49,17 +49,28 @@ A collection of Python scripts to enhance your Zotero workflow, including PDF ma
 1. Clone this repository:
 ```bash
 git clone <repository-url>
-cd zotero
+cd zotero-helper-scripts
 ```
 
-2. Install required packages:
+2. Create and activate a virtual environment (recommended):
+```bash
+# On macOS/Linux
+python3 -m venv venv
+source venv/bin/activate
+
+# On Windows
+python -m venv venv
+.\venv\Scripts\activate
+```
+
+3. Install the required packages:
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Run the setup script:
+4. Run the setup script to configure your Zotero API credentials:
 ```bash
-python3 api_setup.py
+python api_setup.py
 ```
 
 ## Configuration
@@ -173,6 +184,13 @@ Feel free to open issues or submit pull requests with improvements.
 
 ## License
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. The MIT License is a permissive license that is short and to the point. It lets people do anything they want with your code as long as they provide attribution back to you and don't hold you liable.
+
+## Author
+
+**Lasse Jellum** - [jellum.net](https://jellum.net)
+
+If you find this project helpful, consider:
+- Starring the repository
+- Following me on [GitHub](https://github.com/nytafar)
+- Checking out my other projects

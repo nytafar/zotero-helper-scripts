@@ -22,6 +22,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Added detailed help messages for all scripts
   - Added command-line argument documentation
   - Created this CHANGELOG
+- 🤝 Community
+  - Added MIT License
+  - Added GitHub issue templates
+  - Added pull request template
+  - Added contributing guidelines
+  - Added community health files
 
 ### Changed
 - 🚀 User Interface
