@@ -1,4 +1,3 @@
- ```
   ______ _____ _____ _____ ____   ___  
  |___  /|  _  |_   _|  ___|  _ \ / _ \ 
     / / | | | | | | | |__ | |_) | | | |
@@ -174,4 +173,6 @@ Feel free to open issues or submit pull requests with improvements.
 
 ## License
 
-[Add your chosen license here]
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. The MIT License is a permissive license that is short and to the point. It lets people do anything they want with your code as long as they provide attribution back to you and don't hold you liable.
