@@ -1,33 +1,33 @@
   ```ascii
-  ______ _____ _____ _____ ____   ___  
- |___  /|  _  |_   _|  ___|  _ \ / _ \ 
-    / / | | | | | | | |__ | |_) | | | |
-   / /  | | | | | | |  __||    /| | | |
-  / /___\ \_/ / | | | |___| |\ \| |_| |
- /_____/ \___/  \_/ \____/|_| \_\\___/ 
+   ⚔️   _____                 _                  ⚔️
+      |__  /___  _ __ _ __ ___ | |_ ___ _ __ ___   
+        / // _ \| '__| '__/ _ \| __/ _ \ '__/ _ \  
+       / /| (_) | |  | | | (_) | ||  __/ | | (_) | 
+      /____\___/|_|  |_|  \___/ \__\___|_|  \___/  
                                       
-     📚 -> 💎 Helper Scripts for Research Excellence
-     Zotero to Obsidian Integration Made Easy
+     "Leave your mark on research!" ✒️ -> 💎
+      Zorro-inspired Zotero-Obsidian Integration
 ```
 
-# Zotero Helper Scripts [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# Zorrotero [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A collection of Python scripts to enhance your Zotero workflow, including PDF management and Obsidian note generation.
+Like the masked vigilante who leaves his mark with a swift slash of his sword, Zorrotero helps you leave your mark on academic research. This swashbuckling suite of Python scripts enhances your Zotero workflow with style, slicing through PDFs and carving elegant notes in Obsidian.
 
 ```ascii
-     _____     __                  
+     _____     __    ⚔️               
     |     |___|  |__.---.-.-----.
     |  |  |   |  |  |  _  |__ --|
     |_____|___|__|__|___._|_____|
-    Research Tools & Integration
+    Swift & Elegant Research Tools
 ```
 
 ## Features
 
-- **PDF Download**: Batch download PDFs from your Zotero collections
-- **Obsidian Integration**: Generate structured markdown notes in your Obsidian vault
-- **Interactive Selection**: Easy-to-use arrow key navigation for collection selection
-- **Environment Configuration**: Simple setup process for API keys and preferences
+- **Swift as Zorro's Blade**: Batch download PDFs from your Zotero collections
+- **Mark Your Territory**: Generate structured Obsidian notes from your Zotero items
+- **Master of Disguise**: Customize note templates to your liking
+- **Leave No Trace**: Automatic cleanup and organization
+- **Defend Your Research**: Backup your knowledge base
 
 ## Prerequisites
 
@@ -38,22 +38,22 @@ A collection of Python scripts to enhance your Zotero workflow, including PDF ma
 ## Installation
 
 ```ascii
-     ___           __        __ 
-    |   .-----.--|  |.--.--|  |
-    |.  |     |  _  |  |  |  |
-    |.  |__|__|_____|_____|__|
-    |:  |
-    |::.|    Setup & Config
+     ___,          __        __ 
+    /   |.----.-.|  |.--.--|  |
+    |   ||     |-|  |  |  |  |
+    |   ||__|__|_|__|_____|__|
+    |   | Unsheathe Your Tools
+    |   |
     `---'
 ```
 
-1. Clone this repository:
+1. Don your mask and clone this repository:
 ```bash
-git clone <repository-url>
-cd zotero-helper-scripts
+git clone https://github.com/nytafar/zorrotero.git
+cd zorrotero
 ```
 
-2. Create and activate a virtual environment (recommended):
+2. Prepare your weapons (virtual environment):
 ```bash
 # On macOS/Linux
 python3 -m venv venv
@@ -64,12 +64,12 @@ python -m venv venv
 .\venv\Scripts\activate
 ```
 
-3. Install the required packages:
+3. Sharpen your blade (install dependencies):
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Run the setup script to configure your Zotero API credentials:
+4. Configure your secret identity:
 ```bash
 python api_setup.py
 ```
